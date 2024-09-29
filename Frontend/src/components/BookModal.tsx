@@ -14,8 +14,8 @@ import type {FormProps} from "antd";
 
 const {Text} = Typography;
 const {Option} = Select;
-import {IDataType} from "@/app/students/interface";
-import {createStudent, updateStudent} from "@/app/students/api";
+import {IBook} from "@/app/books/interface";
+import {createBook, updateBook} from "@/app/books/api";
 import {notification} from "antd/lib";
 import dayjs, {Dayjs} from "dayjs";
 
@@ -23,29 +23,16 @@ type Props = {
     open: boolean;
     onClose: () => void;
     formType: "create" | "update";
-    data: IDataType | null;
+    data: IBook | null;
     handleReload: () => void;
 };
 
 type FieldType = {
-    full_name?: string;
-    birthday?: string | null;
-    phone?: string;
-    email?: string;
-    judge?: [];
-    gender?: string;
-    other_phone?: string;
-    other_email?: string;
-    status?: string;
-    assign_to?: string;
-    company_name?: string;
-    career?: string;
-    department?: string;
-    total_employee?: number;
-    country?: string;
-    city?: string;
-    district?: string;
-    address?: string;
+    id?: string;
+    title?: string;
+    description?: string|null;
+    price?: number;
+    author?: string;
 };
 
 const validateMessages = {
@@ -56,12 +43,11 @@ const validateMessages = {
     }
 };
 
-const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
+const bookModal = ({open, onClose, formType, data, handleReload}: Props) => {
     const [form] = Form.useForm();
 
     const data2 = {
         ...data,
-        birthday: dayjs(data?.birthday)
     }
 
     const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
@@ -73,28 +59,27 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
             form.validateFields().then((value) => {
                 value.birthday = dayjs(value.birthday).format("YYYY-MM-DD");
                 const payload = {
-                    full_name: value.full_name,
-                    birthday: value.birthday || null,
-                    phone: value.phone,
-                    email: value.email,
-                    gender: value.gender || null,
+                    title: value.title,
+                    description: value.description,
+                    price: value.price,
+                    author: value.author,
                 }
                 form.resetFields();
                 if (formType === "create") {
-                    createStudent(payload).then(r => {
+                    createBook(payload).then(r => {
                         console.log(r)
                         handleReload();
                         onClose();
                         notification.success({
-                            message: "Thêm sinh viên thành công!"
+                            message: "Thêm sách thành công!"
                         });
                     });
                 } else {
-                    updateStudent(data?.id, payload).then(r => {
+                    updateBook(data?.id, payload).then(r => {
                         handleReload();
                         onClose();
                         notification.success({
-                            message: "Cập nhật sinh viên thành công!"
+                            message: "Cập nhật sách thành công!"
                         });
                     });
                 }
@@ -107,13 +92,13 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
     return (
         <>
             <Modal
-                title="Form nhập thông tin sinh viên tiềm năng"
+                title="Form nhập thông tin sách tiềm năng"
 
                 style={{top: 20}}
                 open={open}
                 onCancel={onClose}
                 cancelText="Đóng"
-                okText={formType === "create" ? "Thêm sinh viên" : "Cập nhật sinh viên"}
+                okText={formType === "create" ? "Thêm sách" : "Cập nhật sách"}
                 width={1000}
                 okButtonProps={{
                     htmlType: "submit",
@@ -133,52 +118,31 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
 
                     <Row>
                         <Col span={24}>
-                            <Text type="secondary">Thông tin học sinh</Text>
+                            <Text type="secondary">Thông tin </Text>
                         </Col>
                     </Row>
 
                     <Row gutter={24}>
                         <Col span={12}>
-                            <Form.Item<FieldType> label="Họ và tên" name="full_name" rules={[{required: true}]}>
+                            <Form.Item<FieldType> label="Tiêu đề" name="title" rules={[{required: true}]}>
                                 <Input/>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item<FieldType> label="Giới tính" name="gender">
-                                <Select onChange={() => {
-                                }} allowClear>
-                                    <Option value="male">Nam</Option>
-                                    <Option value="female">Nữ</Option>
-                                </Select>
+                            <Form.Item<FieldType> label="Thông tin" name="description" rules={[{required: true}]}>
+                                <Input/>
                             </Form.Item>
                         </Col>
-
                         <Col span={12}>
-                            <Form.Item label="Ngày sinh" name="birthday">
-                                <DatePicker placeholder=""/>
+                            <Form.Item<FieldType> label="Giá" name="price" rules={[{required: true}]}>
+                                <Input type="number"/>
                             </Form.Item>
                         </Col>
-        
-
                         <Col span={12}>
-                            <Form.Item label="Số điện thoại" name="phone" rules={[{required: true}]}>
-                                <Input disabled={formType === "update"}/>
-                            </Form.Item>
-                        </Col>
-                        
-
-                        <Col span={12}>
-                            <Form.Item label="Email" name="email" rules={[{required: true, type: "email"}]}>
+                            <Form.Item label="Tác giả" name="author" rules={[{required: true}]}>
                                 <Input/>
                             </Form.Item>
                         </Col>    
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item<FieldType> label="Địa chỉ nhà" name="address" rules={[{required: true}]}>
-                                <Input/>
-                            </Form.Item>
-                        </Col>
                     </Row>
                 </Form>
             </Modal>
@@ -186,4 +150,4 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
     );
 };
 
-export default studentModal;
+export default bookModal;

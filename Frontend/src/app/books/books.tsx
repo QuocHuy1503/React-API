@@ -2,12 +2,11 @@ import React, {useCallback, useEffect, useState} from "react";
 import {Button, Col, Modal, Row, Space, Table, Tag} from "antd";
 import type {TableProps} from "antd";
 import {Typography} from "antd";
-import {IModalConfig, IStudent} from "./interface";
-import CustomerModal from "@/components/StudentModal";
-import {deleteStudent, getStudents} from "@/app/students/api";
+import {IModalConfig, IBook} from "./interface";
+import BookModal from "@/components/BookModal";
+import {deleteBook, getBooks} from "@/app/books/api";
 import {ExclamationCircleFilled} from "@ant-design/icons";
 import {notification} from "antd/lib";
-import Link from "next/link";
 
 const {Title} = Typography;
 
@@ -24,7 +23,7 @@ export default function Crud() {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<[]>([]);
 
-    const openModal = (type: string, data?: IStudent) => {
+    const openModal = (type: string, data?: IBook) => {
         setModalConfig({
             type: type,
             data: data || null,
@@ -42,14 +41,14 @@ export default function Crud() {
         Modal.confirm({
             title: 'Xác nhận xóa',
             icon: <ExclamationCircleFilled/>,
-            content: 'Bạn có chắc muốn xóa sinh viên này?',
+            content: 'Bạn có chắc muốn xóa sách này?',
             cancelText: "Đóng",
             okText: "Xác nhận",
             okType: "danger",
             maskClosable: true,
             onOk() {
                 try {
-                    deleteStudent(id).then(() => {
+                    deleteBook(id).then(() => {
                         handleReload();
                         notification.success({
                             message: 'Xóa thành công!',
@@ -71,13 +70,9 @@ export default function Crud() {
 
     const handleRequest = useCallback(() => {
         setLoading(true);
-        getStudents()
+        getBooks()
             .then((response) => {
                 setData(response);
-                // response.forEach(element => {
-                //     console.log(`${element.id}`);
-                // });
-                // Lấy id được thì nghĩa là làm lại tương tự để lấy email? if đăng nhập bằng username thì ok?
             })
             .catch((error) => {
                 console.error(error);
@@ -91,26 +86,31 @@ export default function Crud() {
         handleRequest();
     }, [handleRequest]);
 
-    const columns: TableProps<IStudent>["columns"] = [
+    const columns: TableProps<IBook>["columns"] = [
         {
             title: "ID",
             dataIndex: "id",
             key: "id",
         },
         {
-            title: "Họ và tên",
-            dataIndex: "full_name",
-            key: "full_name",
+            title: "Tiêu đề",
+            dataIndex: "title",
+            key: "title",
         },
         {
-            title: "Số điện thoại",
-            dataIndex: "phone",
-            key: "phone",
+            title: "Thông tin",
+            dataIndex: "description",
+            key: "description",
         },
         {
-            title: "Email",
-            key: "email",
-            dataIndex: "email",
+            title: "Giá",
+            key: "price",
+            dataIndex: "price",
+        },
+        {
+            title: "Tác giả",
+            key: "author",
+            dataIndex: "author",
         },
         {
             title: "Thao tác",
@@ -133,7 +133,7 @@ export default function Crud() {
         <>
             <Row justify="space-between" align="bottom">
                 <Col>
-                    <Title level={4}>Danh sách sinh viên tiềm năng</Title>
+                    <Title level={4}>Danh sách sách tiềm năng</Title>
                 </Col>
                 <Col>
                     <Button
@@ -143,23 +143,21 @@ export default function Crud() {
                         }}
                         style={{marginBottom: 8}}
                     >
-                        Thêm sinh viên
+                        Thêm sách
                     </Button>
                 </Col>
             </Row>
             <Table columns={columns} dataSource={data} rowKey={record => record?.id} loading={loading}
                    pagination={{pageSize: 5}}/>
             {modalConfig.type && (
-                <CustomerModal
+                <BookModal
                     open
                     onClose={closeModal}
                     formType={modalConfig.type === "create" ? "create" : "update"}
                     data={modalConfig.data}
                     handleReload={handleReload}
                 />
-            
             )}
-            
         </>
     );
 }

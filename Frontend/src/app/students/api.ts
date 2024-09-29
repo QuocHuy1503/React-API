@@ -8,6 +8,15 @@ const axiosInstance = axios.create({
     },
 });
 
+export const login = async (data: any) => {
+    try {
+      const response = await axiosInstance.post('/login', data);
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+};
+
 export const getStudents = async () => {
     try {
         const response = await axiosInstance("/students");

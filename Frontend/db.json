@@ -1,21 +1,44 @@
 {
-    "students": [
-      {
-        "id": 1,
-        "fullName": "John Doe",
-        "birthday": "1995-01-01",
-        "email": "john.doe@example.com",
-        "phone": "1234567890",
-        "gender": "Male"
+  "students": [
+    {
+      "id": "1",
+      "full_name": "John Doe",
+      "birthday": "1995-01-01",
+      "email": "john.doe@example.com",
+      "phone": "1234567890",
+      "gender": "Male",
+      "username": "johndoe",
+      "password": "password123"
+    },
+    {
+      "id": "2",
+      "full_name": "Jane Smith",
+      "birthday": "1996-02-02",
+      "email": "jane.smith@example.com",
+      "phone": "9876543210",
+      "gender": "Female",
+      "username": "janesmith",
+      "password": "password123"
+    }
+  ],
+  "books": [
+    {
+      "title": "The Lord of the Rings",
+      "description": "An epic high-fantasy trilogy by J. R. R. Tolkien",
+      "price": 29.99,
+      "author": {
+        "name": "J. R. R. Tolkien"
       },
-      {
-        "id": 2,
-        "fullName": "Jane Smith",
-        "birthday": "1996-02-02",
-        "email": "jane.smith@example.com",
-        "phone": "9876543210",
-        "gender": "Female"
-      }
-
-    ]
-  }
+      "id": "73c5"
+    },
+    {
+      "title": "Pride and Prejudice",
+      "description": "A classic novel of manners by Jane Austen",
+      "price": 14.99,
+      "author": {
+        "name": "Jane Austen"
+      },
+      "id": "bf10"
+    }
+  ]
+}
