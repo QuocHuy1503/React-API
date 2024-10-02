@@ -1,6 +1,9 @@
-"use client";
-import React, { useState, useCallback, useEffect } from 'react';
+"use client"
+import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
+import { login } from '@/app/students/api';
+import {toast} from "react-toastify";
+
 
 
 type FieldType = {
@@ -9,15 +12,27 @@ type FieldType = {
   remember?: string;
 };
 
+
 const App: React.FC = () => {
+  
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onFinish = (values: FieldType) => {
-    console.log('Success:', values);  
+  const handelLogin = async (event: any) => {
+    event.preventDefault()
+    
+    try {
+      const response = await login(email,password);
+      if (response) {
+        localStorage.setItem("students", JSON.stringify(response));
+        window.location.href = "/students";
+      }
+    } catch (error: any) {
+      toast.error(error.message);
+      console.error(error);
+    }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
 
   return (
     <Form
@@ -26,16 +41,15 @@ const App: React.FC = () => {
       wrapperCol={{ span: 16 }}
       style={{ maxWidth: 600 }}
       initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
       autoComplete="off"
+      onSubmitCapture={handelLogin}
     >
       <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        label="Email"
+        name="email"
+        rules={[{ required: true, message: 'Please input your email!' }]}
       >
-        <Input />
+        <Input onChange={(e) => setEmail(e.target.value)} placeholder="Email" type="email"  />
       </Form.Item>
 
       <Form.Item
@@ -43,7 +57,7 @@ const App: React.FC = () => {
         name="password"
         rules={[{ required: true, message: 'Please input your password!' }]}
       >
-        <Input.Password />
+        <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
       </Form.Item>
 
       <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
@@ -51,8 +65,8 @@ const App: React.FC = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
+        <Button type="primary" htmlType="submit" onClick={() => handelLogin(event)}>
+            Submit
         </Button>
       </Form.Item>
 

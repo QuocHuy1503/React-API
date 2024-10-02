@@ -1,21 +1,22 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3001',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json'
     },
 });
 
-export const login = async (data: any) => {
+export const login = async (email: string ,password: string ) => {
     try {
-      const response = await axiosInstance.post('/login', data);
+      const response = await axiosInstance.post('/students?email=' + email + '&password=' + password);
       return response.data;
     } catch (error) {
       console.error(error);
     }
-};
+  };
+  
 
 export const getStudents = async () => {
     try {
@@ -34,6 +35,16 @@ export const createStudent = async (data: any) => {
         console.error(error);
     }
 };
+
+
+// export const getStudent = async () => {
+//     try {
+//         const response = await axiosInstance(`/students/`);
+//         return response.data;
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
 
 export const updateStudent = async (id: string | undefined, data: any) => {
     try {

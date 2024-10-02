@@ -4,11 +4,11 @@
       "id": "1",
       "full_name": "John Doe",
       "birthday": "1995-01-01",
-      "email": "john.doe@example.com",
+      "email": "a@gmail.com",
       "phone": "1234567890",
       "gender": "Male",
       "username": "johndoe",
-      "password": "password123"
+      "password": "1"
     },
     {
       "id": "2",
