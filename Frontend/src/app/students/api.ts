@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3001',
+    baseURL: 'http://localhost:3001/api',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json'
@@ -21,7 +21,8 @@ export const login = async (email: string ,password: string ) => {
 export const getStudents = async () => {
     try {
         const response = await axiosInstance("/students");
-        return response.data;
+        // return response.data;
+        return response;
     } catch (error) {
         console.error(error);
     }

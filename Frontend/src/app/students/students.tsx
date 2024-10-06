@@ -99,13 +99,13 @@ export default function Crud() {
         },
         {
             title: "Họ và tên",
-            dataIndex: "full_name",
-            key: "full_name",
+            dataIndex: "first_name",
+            key: "first_name",
         },
         {
             title: "Số điện thoại",
-            dataIndex: "phone",
-            key: "phone",
+            dataIndex: "last_name",
+            key: "last_name",
         },
         {
             title: "Email",

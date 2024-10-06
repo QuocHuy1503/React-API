@@ -4,10 +4,9 @@ export interface IModalConfig {
 }
 
 export interface IStudent {
-  id: string;
-  full_name: string;
-  birthday: string;
-  phone: string;
+  student_id: string;
+  first_name: string;
+  last_name: string;
+  password: string;
   email: string;
-  gender: string;
 }

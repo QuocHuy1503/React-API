@@ -14,16 +14,19 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class StudentDTO implements Serializable {
 
-    private Long studentId;
+    private Long student_id;
     private String username;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
+    private String password;
 
-    public StudentDTO(String username, String email, String firstName, String lastName) {
+    public StudentDTO(Student student) {
         this.username = username;
         this.email = email;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.password = password;
     }
+
 }
