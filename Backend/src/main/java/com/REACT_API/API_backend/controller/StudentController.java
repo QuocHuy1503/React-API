@@ -13,13 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.REACT_API.API_backend.repository.StudentRepository;
 import com.REACT_API.API_backend.service.StudentService;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3001")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StudentController {
     private final Logger log = LoggerFactory.getLogger(StudentDTO.class);
     private final StudentService StudentService;

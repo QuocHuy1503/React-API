@@ -18,21 +18,20 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long student_id;
+    @Column(nullable = false, name = "student_id")
+    private Integer student_id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "password")
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, name = "email")
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "first_name")
     private String first_name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "last_name")
     private String last_name;
 
 
