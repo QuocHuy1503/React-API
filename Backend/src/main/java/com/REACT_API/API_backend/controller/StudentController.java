@@ -21,6 +21,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")
+// CrossOrigin là để chỉ localhost của front-end
+// Port trong application properties là để chỉ địa chỉ request
 public class StudentController {
     private final Logger log = LoggerFactory.getLogger(StudentDTO.class);
     private final StudentService StudentService;
@@ -50,13 +52,13 @@ public class StudentController {
     public ResponseEntity<StudentDTO> createStudent(@Valid @RequestBody StudentDTO StudentDTO) throws URISyntaxException {
         log.debug("REST request to save Student : {}", StudentDTO);
         StudentDTO result = StudentService.createStudent(StudentDTO);
-        return ResponseEntity.created(new URI("api/Students/" + result.getStudent_id())).headers(headers).body(result);
+        return ResponseEntity.created(new URI("api/Students/" + result.getId())).headers(headers).body(result);
     }
 
     @PutMapping("/student/{id}")
     public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id, @Valid @RequestBody StudentDTO StudentDTO) throws BadRequestException {
         log.debug("REST request to update Student : {}", StudentDTO);
-        if(!StudentDTO.getStudent_id().equals(id)) {
+        if(!StudentDTO.getId().equals(id)) {
             throw new BadRequestException("Invalid ID");
         }
         StudentDTO result = StudentService.updateStudent(id, StudentDTO);

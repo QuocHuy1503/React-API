@@ -18,8 +18,8 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "student_id")
-    private Integer student_id;
+    @Column(nullable = false, name = "id")
+    private Long id;
 
 
     @Column(nullable = false, name = "password")

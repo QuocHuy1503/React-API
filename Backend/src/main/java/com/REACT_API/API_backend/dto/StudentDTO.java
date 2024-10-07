@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class StudentDTO implements Serializable {
 
-    private Integer student_id;
+    private Long id;
     private String email;
     private String first_name;
     private String last_name;

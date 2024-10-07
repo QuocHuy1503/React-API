@@ -26,8 +26,12 @@ public class StudentService {
     public Page<StudentDTO> getStudents(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         log.debug("Request to getStudents pageable: {}", pageable);
-
-        return studentRepository.findAll(pageable).map(StudentDTO::new);
+        Page<Student> students = studentRepository.findAll(pageable);
+        return students.map(student -> {
+            StudentDTO studentDTO = new StudentDTO(student);
+            studentDTO.setId(student.getId()); // Set the student_id explicitly
+            return studentDTO;
+        });
     }
 
     public StudentDTO getStudent(Long id){
@@ -44,7 +48,7 @@ public class StudentService {
         student.setPassword(studentDTO.getPassword());
         student = studentRepository.save(student);
         StudentDTO studentDTOCreated = new StudentDTO(student);
-        studentDTOCreated.setStudent_id(student.getStudent_id()); // Set the student_id explicitly
+        studentDTOCreated.setId(student.getId()); // Set the student_id explicitly
         return studentDTOCreated;
     }
 
@@ -62,7 +66,7 @@ public class StudentService {
         student.setPassword(studentDTO.getPassword());
         student = studentRepository.save(student);
         StudentDTO studentDTOUpdated = new StudentDTO(student);
-        studentDTOUpdated.setStudent_id(student.getStudent_id()); // Set the student_id explicitly
+        studentDTOUpdated.setId(student.getId()); // Set the student_id explicitly
         return studentDTOUpdated;
     }
 

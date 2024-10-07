@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3001/api',
+    baseURL: 'http://localhost:8080/api', // Cái request sẽ là địa chỉ này, còn cái @CrossOrgin là để chỉ địa chỉ của local host front end
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ export const getStudents = async () => {
     try {
         const response = await axiosInstance("/students");
         // return response.data;
-        return response;
+        return response.data;
     } catch (error) {
         console.error(error);
     }
