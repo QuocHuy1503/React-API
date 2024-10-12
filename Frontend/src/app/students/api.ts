@@ -15,7 +15,7 @@ export const login = async (email: string ,password: string ) => {
     } catch (error) {
       console.error(error);
     }
-  };
+};
   
 
 export const getStudents = async () => {

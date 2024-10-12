@@ -1,20 +1,20 @@
 package com.REACT_API.API_backend.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
+
+@Data
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="students")
-public class Student implements Serializable {
+public class Student implements Serializable  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

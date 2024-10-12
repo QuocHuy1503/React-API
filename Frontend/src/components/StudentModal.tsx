@@ -14,7 +14,7 @@ import type {FormProps} from "antd";
 
 const {Text} = Typography;
 const {Option} = Select;
-import {IDataType} from "@/app/students/interface";
+import {IStudent} from "@/app/students/interface";
 import {createStudent, updateStudent} from "@/app/students/api";
 import {notification} from "antd/lib";
 import dayjs, {Dayjs} from "dayjs";
@@ -23,29 +23,16 @@ type Props = {
     open: boolean;
     onClose: () => void;
     formType: "create" | "update";
-    data: IDataType | null;
+    data: IStudent | null;
     handleReload: () => void;
 };
 
 type FieldType = {
-    full_name?: string;
-    birthday?: string | null;
-    phone?: string;
+    first_name?: string;
+    last_name?: string;
+    password?: string;
     email?: string;
-    judge?: [];
-    gender?: string;
-    other_phone?: string;
-    other_email?: string;
-    status?: string;
-    assign_to?: string;
-    company_name?: string;
-    career?: string;
-    department?: string;
-    total_employee?: number;
-    country?: string;
-    city?: string;
-    district?: string;
-    address?: string;
+
 };
 
 const validateMessages = {
@@ -61,7 +48,6 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
 
     const data2 = {
         ...data,
-        birthday: dayjs(data?.birthday)
     }
 
     const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
@@ -139,12 +125,17 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
 
                     <Row gutter={24}>
                         <Col span={12}>
-                            <Form.Item<FieldType> label="Họ và tên" name="full_name" rules={[{required: true}]}>
+                            <Form.Item<FieldType> label="Họ" name="first_name" rules={[{required: true}]}>
                                 <Input/>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item<FieldType> label="Giới tính" name="gender">
+                            <Form.Item<FieldType> label="Tên" name="last_name" rules={[{required: true}]}>
+                                <Input/>
+                            </Form.Item>
+                        </Col>
+                        {/* <Col span={12}> */}
+                            {/* <Form.Item<FieldType> label="Giới tính" name="gender">
                                 <Select onChange={() => {
                                 }} allowClear>
                                     <Option value="male">Nam</Option>
@@ -157,15 +148,15 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
                             <Form.Item label="Ngày sinh" name="birthday">
                                 <DatePicker placeholder=""/>
                             </Form.Item>
-                        </Col>
+                        </Col> */}
         
 
-                        <Col span={12}>
+                        {/* <Col span={12}>
                             <Form.Item label="Số điện thoại" name="phone" rules={[{required: true}]}>
                                 <Input disabled={formType === "update"}/>
                             </Form.Item>
                         </Col>
-                        
+                         */}
 
                         <Col span={12}>
                             <Form.Item label="Email" name="email" rules={[{required: true, type: "email"}]}>
@@ -173,13 +164,13 @@ const studentModal = ({open, onClose, formType, data, handleReload}: Props) => {
                             </Form.Item>
                         </Col>    
                     </Row>
-                    <Row>
+                    {/* <Row>
                         <Col span={12}>
                             <Form.Item<FieldType> label="Địa chỉ nhà" name="address" rules={[{required: true}]}>
                                 <Input/>
                             </Form.Item>
                         </Col>
-                    </Row>
+                    </Row> */}
                 </Form>
             </Modal>
         </>
