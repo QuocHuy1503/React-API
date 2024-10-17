@@ -17,9 +17,10 @@ public class AuthenticationService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(UserRepository repository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthenticationService(UserRepository repository, PasswordEncoder passwordEncoder,
+                                 JwtService jwtService, AuthenticationManager authenticationManager) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
@@ -32,10 +33,10 @@ public class AuthenticationService {
                 .last_name(request.getLastname())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.USER)
+                .role(Role.ADMIN)
                 .build();
         repository.save(user);
-        var jwtToken =  jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationRespone.builder().token(jwtToken).build();
     }
 
@@ -47,7 +48,7 @@ public class AuthenticationService {
                 )
         );
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken =  jwtService.generateToken(user);
+        var jwtToken = jwtService.generateToken(user);
         return AuthenticationRespone.builder().token(jwtToken).build();
     }
 }

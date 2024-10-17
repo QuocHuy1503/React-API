@@ -30,8 +30,8 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuthenticationService authenticationService(){
-        return new AuthenticationService(userRepository, passwordEncoder(), jwtService);
+    public AuthenticationService authenticationService(AuthenticationManager authenticationManager){
+        return new AuthenticationService(userRepository, passwordEncoder(), jwtService, authenticationManager);
     }
 
     @Bean
@@ -48,7 +48,7 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception{
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }
