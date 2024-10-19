@@ -23,7 +23,6 @@ export default function Crud() {
     });
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<[]>([]);
-
     const openModal = (type: string, data?: IStudent) => {
         setModalConfig({
             type: type,

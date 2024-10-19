@@ -3,21 +3,25 @@ package com.REACT_API.API_backend.controller;
 import com.REACT_API.API_backend.auth.AuthenticationRequest;
 import com.REACT_API.API_backend.auth.AuthenticationRespone;
 import com.REACT_API.API_backend.auth.RegisterRequest;
+import com.REACT_API.API_backend.entity.User;
 import com.REACT_API.API_backend.service.AuthenticationService;
+import com.REACT_API.API_backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "3000")
 public class AuthenticationController {
 
     private final AuthenticationService service;
+    private final UserService userService;
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationRespone> register(@RequestBody RegisterRequest request){
@@ -27,5 +31,11 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationRespone> register(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(service.authenticate(request));
 
+    }
+    @GetMapping("/users")
+    @PreAuthorize("hasAuthority('ADMIN')") // Ensure only users with ADMIN role can access
+    public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userService.getAllUsers(); // Fetch the list of users
+        return ResponseEntity.ok(users);
     }
 }

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { login } from '@/app/students/api';
+import { login2 } from '@/app/students/api';
 import {toast} from "react-toastify";
 
 
@@ -17,23 +17,44 @@ const App: React.FC = () => {
   
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [token, setToken] = useState<string | null>(null);
+
+  // const handelLogin = async (event: any) => {
+  //   event.preventDefault()
+    
+  //   try {
+  //     const response = await login2(email,password);
+  //     setToken(response.data.token);
+  //     if (response) {
+  //       // localStorage.setItem("students", JSON.stringify(response));
+  //       // window.location.href = "/students";
+  //       console.log(token);
+  //     }
+  //   } catch (error: any) {
+  //     toast.error(error.message);
+  //     console.error(error);
+  //   }
+  // };
 
   const handelLogin = async (event: any) => {
-    event.preventDefault()
+    event.preventDefault();
     
     try {
-      const response = await login(email,password);
-      if (response) {
-        localStorage.setItem("students", JSON.stringify(response));
-        window.location.href = "/students";
-      }
+        const response = await login2(email, password);
+        console.log(response); // Log the entire response
+        if (response && response.token) {
+            setToken(response.token); // Access token directly
+            localStorage.setItem("students", JSON.stringify(response.token));
+            window.location.href = "/students";
+        } else {
+            throw new Error("Token not found in response");
+        }
     } catch (error: any) {
-      toast.error(error.message);
-      console.error(error);
+        toast.error(error.message);
+        console.error(error);
     }
   };
-
-
+  
   return (
     <Form
       name="basic"

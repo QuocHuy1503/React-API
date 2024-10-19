@@ -16,7 +16,15 @@ export const login = async (email: string ,password: string ) => {
       console.error(error);
     }
 };
-  
+
+export const login2 = async(email: string, password: string) => {
+    try {
+        const response = await axiosInstance.post('/authenticate', { email, password });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 export const getStudents = async () => {
     try {
