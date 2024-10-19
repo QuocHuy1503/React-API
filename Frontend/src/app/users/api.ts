@@ -37,9 +37,9 @@ export const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("user") || "{}");
 }
 
-const getAllUsers = async () => {
+export const getAllUsers = async () => {
     try {
-        const response = await axiosInstance.get('/users', {headers: authHeader()});
+        const response = await axiosInstance.get('/users');
         return response.data;
     } catch (error) {
         console.error(error);

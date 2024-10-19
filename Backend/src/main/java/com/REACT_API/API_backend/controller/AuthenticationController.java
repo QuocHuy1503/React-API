@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthenticationController {
 
     private final AuthenticationService service;
@@ -31,11 +31,5 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationRespone> register(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(service.authenticate(request));
 
-    }
-    @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ADMIN')") // Ensure only users with ADMIN role can access
-    public ResponseEntity<List<User>> getUsers() {
-        List<User> users = userService.getAllUsers(); // Fetch the list of users
-        return ResponseEntity.ok(users);
     }
 }

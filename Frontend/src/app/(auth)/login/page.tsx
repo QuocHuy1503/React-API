@@ -44,8 +44,8 @@ const App: React.FC = () => {
         console.log(response); // Log the entire response
         if (response && response.token) {
             setToken(response.token); // Access token directly
-            localStorage.setItem("students", JSON.stringify(response.token));
-            window.location.href = "/students";
+            localStorage.setItem("users", JSON.stringify(response.token));
+            window.location.href = "../../";
         } else {
             throw new Error("Token not found in response");
         }
@@ -86,7 +86,7 @@ const App: React.FC = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit" onClick={() => handelLogin(event)}>
+        <Button type="primary" htmlType="submit">
             Submit
         </Button>
       </Form.Item>
