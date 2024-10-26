@@ -46,6 +46,7 @@ public class BookService {
         book.setPublished_year(bookDTO.getPublished_year());
         book.setGenre(bookDTO.getGenre());
         book.setAvailable(bookDTO.getAvailable());
+        book.setImage(bookDTO.getImage());
         book = bookRepository.save(book);
         BookDTO bookDTOCreated = new BookDTO(book);
         bookDTOCreated.setBook_id(book.getBook_id()); // Set the book_id explicitly
@@ -65,6 +66,7 @@ public class BookService {
         book.setPublished_year(bookDTO.getPublished_year());
         book.setGenre(bookDTO.getGenre());
         book.setAvailable(bookDTO.getAvailable());
+        book.setImage(bookDTO.getImage());
         book = bookRepository.save(book);
         BookDTO bookDTOUpdated = new BookDTO(book);
         bookDTOUpdated.setBook_id(book.getBook_id()); // Set the book_id explicitly

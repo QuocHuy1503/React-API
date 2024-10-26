@@ -25,7 +25,7 @@ export default function Home() {
       {user ? <Link href={"/students"}>Students</Link> : ""}
       {user ? <Link href={"/books"}>Books</Link> : ""}
       {user ? <button onClick={handelLogOut}>Logout</button> : <Link href={"/login"}>Login</Link>}
-      <Link href={"/UserPage"}>UserPage</Link>
+      <Link href={"/userPage"}>UserPage</Link>
     </div>
   );
 }

@@ -35,4 +35,7 @@ public class Book implements Serializable {
 
     @Column(nullable = false, name = "available")
     private Boolean available;
+
+    @Column(nullable = false, name="image")
+    private String image;
 }

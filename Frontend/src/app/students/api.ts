@@ -29,7 +29,6 @@ export const login2 = async(email: string, password: string) => {
 export const getStudents = async () => {
     try {
         const response = await axiosInstance("/students");
-        // return response.data;
         return response.data;
     } catch (error) {
         console.error(error);

@@ -20,6 +20,7 @@ public class BookDTO implements Serializable {
     private Integer published_year;
     private String genre;
     private Boolean available;
+    private String image;
 
     public BookDTO(Book book) {
         this.title = book.getTitle();
@@ -27,5 +28,6 @@ public class BookDTO implements Serializable {
         this.published_year = book.getPublished_year();
         this.genre = book.getGenre();
         this.available = book.getAvailable();
+        this.image = book.getImage();
     }
 }

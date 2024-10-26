@@ -47,7 +47,7 @@ public class BookController {
     public ResponseEntity<BookDTO> createBook(@Valid @RequestBody BookDTO bookDTO) throws URISyntaxException {
         log.debug("REST request to save Book : {}", bookDTO);
         BookDTO result = bookService.createBook(bookDTO);
-        return ResponseEntity.created(new URI("api/Books/" + result.getBook_id())).headers(headers).body(result);
+        return ResponseEntity.created(new URI("api/books/" + result.getBook_id())).headers(headers).body(result);
     }
 
     @PutMapping("/book/{book_id}")
