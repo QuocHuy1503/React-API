@@ -1,3 +1,4 @@
+
 let links = [
     {name: "HOME", href: "/"},
     {name: "USER PAGE", href: "/card"},
@@ -6,7 +7,9 @@ let links = [
     {name: "LOGIN", href: "/login"},
     {name: "LOGOUT", href: "/logout"},
 ];
-export default function navBar() {
+
+export function navBar() {
+   
     return (
     <>
         <div className="shadow-md w-full fixed top-0 left-0">
@@ -19,18 +22,21 @@ export default function navBar() {
                     </span>
                     Designer
                 </div>
-                <ul className="md:flex md:items-center ">
-                    {links.map((link) => (
-                        <li key={link.name} className="md:ml-8 text-xl">
-                            <a href={link.href} className="text-gray-800 hover:text-gray-500 duration-500">{link.name}</a>
-                        </li>
-                    ))}
-                    <button className="bg-indigo text-white font-bold py-2 px-4 border-b-4 border-indigo-700 hover:border-indigo-500 rounded md:ml-8 hover:*:text-indigo">
-                        Getting Started
-                    </button>
-                    
-                </ul>
-
+                <div className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                </div>
+                    <ul className="md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-white md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 translate-all duration-500 ease-in">
+                        {links.map((link) => (
+                            <li key={link.name} className="md:ml-8 text-xl md:my-0 my-40">
+                                <a href={link.href} className="text-gray-800 hover:text-gray-500 duration-500">{link.name}</a>
+                            </li>
+                        ))}
+                        <button className="bg-indigo-600 text-white font-bold py-2 px-4 border-b-4 hover:border-indigo-400 rounded md:ml-8 duration-500">
+                            Getting Started
+                        </button>
+                    </ul>
             </div>
         </div>
     </>

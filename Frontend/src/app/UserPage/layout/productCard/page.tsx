@@ -4,7 +4,7 @@ import { getBooks } from "@/app/books/api";
 import { IBook } from "@/app/books/interface";
 
 
-export default function UserPage() {
+export function UserPage() {
     const [books, setBooks ] = useState<IBook[]>([]);
 
     useEffect(() => {
